@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsc && jest dist/test",
+    "test": "jest",
     "coverage": "jest --coverage"
   },
   "keywords": [],
