@@ -1,4 +1,4 @@
-import Dimension from "../src/Dimension"
+import Dimension from "../../src/domain/entity/Dimension"
 
 it('Deve criar as dimensoes', ()=>{
     const dimension = new Dimension(100, 30, 10)
