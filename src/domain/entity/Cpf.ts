@@ -15,7 +15,7 @@ export default class Cpf {
 		if (this.isIdenticalDigits(cpf)) return false;
 		const calculatedCheckDigit1 = this.calculateCheckDigit(cpf, this.FIRST_DIGIT_FACTOR);
 		const calculatedCheckDigit2 = this.calculateCheckDigit(cpf, this.SECOND_DIGIT_FACTOR);
-		let checkDigit = this.extractCheckDigit(cpf);
+		const checkDigit = this.extractCheckDigit(cpf);
 		const calculatedCheckDigit = `${calculatedCheckDigit1}${calculatedCheckDigit2}`;
 		return checkDigit === calculatedCheckDigit;
 	}

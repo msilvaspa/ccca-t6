@@ -60,3 +60,8 @@ it("deve criar um pedido com 3 itens e calcular o frete", () => {
     expect(freight).toBe(260);
     expect(total).toBe(6350)
 })
+
+it('Deve criar um pedido e gerar um código AAAAPPPPPPPP', () => {
+    const order = new Order('935.411.347-80', new Date('2021-03-01T10:00:00'));
+    expect(order.getCode()).toBe('202100000001')
+})

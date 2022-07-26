@@ -2,18 +2,21 @@ import Coupon from "./Coupon";
 import Cpf from "./Cpf";
 import Freight from "./Freight";
 import Item from "./Item";
+import OrderCode from "./OrderCode";
+import OrderCoupon from "./OrderCoupon";
 import OrderItem from "./OrderItem";
 
 export default class Order {
     cpf: Cpf;
-    private orderItems: OrderItem[];
-    private coupon?: Coupon;
-    freight = new Freight;
+    orderItems: OrderItem[];
+    coupon?: OrderCoupon;
+    freight = new Freight();
+    code: OrderCode;
 
-    constructor(cpf: string, readonly date: Date = new Date()) {
+    constructor(cpf: string, readonly date: Date = new Date(), readonly sequence: number = 1) {
         this.cpf = new Cpf(cpf);
         this.orderItems = [];
-        this.coupon = undefined;
+        this.code = new OrderCode(date, sequence);
     }
 
     addItem(item: Item, quantity: number) {
@@ -22,7 +25,7 @@ export default class Order {
     }
 
     addCoupon(coupon: Coupon) {
-        if (!coupon.isExpired(this.date)) this.coupon = coupon;
+        if (!coupon.isExpired(this.date)) this.coupon = new OrderCoupon(coupon.code, coupon.percentage);
     }
 
     getFreight() {
@@ -32,8 +35,11 @@ export default class Order {
     getTotal() {
         let total = this.orderItems.reduce((total, item) => total + item.getTotal(), 0);
         if (this.coupon) total -= this.coupon.calculateDiscount(total);
-        total += this.freight.getTotal();
+        total += this.freight.getTotal();        
         return total;
     }
 
+    getCode() {
+        return this.code.value;
+    }
 }

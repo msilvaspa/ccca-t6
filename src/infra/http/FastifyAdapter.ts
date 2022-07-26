@@ -10,9 +10,8 @@ export default class FastifyAdapter implements Http {
     }
 
     on(method: string, url: string, callback: Function): void {
-        this.app[method](url, async (req: FastifyRequest, res: FastifyReply) => {
-            const output = await callback(req.params, req.body)
-            return output;
+        this.app[method](url, async (req: FastifyRequest, _res: FastifyReply) => {
+            return callback(req.params, req.body)
         });
     }
 
